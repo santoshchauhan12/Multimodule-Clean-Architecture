@@ -1,6 +1,6 @@
 package com.android.core
 
-interface IComposeImp {
+interface ILoader {
 
     fun getComposeMessage(str: String): String
 }
