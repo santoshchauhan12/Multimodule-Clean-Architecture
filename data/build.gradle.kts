@@ -69,6 +69,12 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+
+// Kotlin Extensions and Coroutines support
+    implementation("androidx.room:room-ktx:2.6.1")
+
     implementation(project(":domain"))
     implementation(project(":network"))
     testImplementation("junit:junit:4.13.2")

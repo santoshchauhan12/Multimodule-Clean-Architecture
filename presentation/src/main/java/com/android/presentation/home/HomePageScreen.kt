@@ -25,7 +25,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.android.core.imageLoadWithDiskCache
 import com.android.core.uicomponent.showCircularProgress
 import com.android.domain.models.ProductDomainModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -74,7 +76,12 @@ fun productItem(item: ProductDomainModel) {
 
     Log.d("thumbnailimage======", "received ${item.thumbnail}")
     val painter = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalContext.current).data(item.thumbnail).build()
+        model = ImageRequest.Builder(LocalContext.current).data(item.thumbnail)
+//            .diskCachePolicy(CachePolicy.ENABLED) // Enable disk caching
+//            .memoryCachePolicy(CachePolicy.ENABLED) // work on real device
+            .build()
+
+//        imageLoader = imageLoadWithDiskCache(LocalContext.current) // work on real device
     )
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
 
