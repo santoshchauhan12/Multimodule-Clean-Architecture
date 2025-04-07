@@ -6,29 +6,26 @@ import com.android.domain.interactor.GetProductUseCase
 import com.android.domain.models.ProductDomainModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getProductUseCase: GetProductUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _productStateFlow = MutableStateFlow<ProductUiState>(ProductUiState.Loading)
     var productStateFlow = _productStateFlow
     fun getProductList(){
         viewModelScope.launch(Dispatchers.IO) {
             _productStateFlow.emit(ProductUiState.Loading)
-            getProductUseCase.execute(onSuccess = {
+            getProductUseCase.invoke(params = Unit, onSuccess = {
                     _productStateFlow.emit(ProductUiState.Product(it))
             }, onFailure = {
                     _productStateFlow.emit(ProductUiState.Failure(it))
-            }, viewModelScope)
+            })
         }
 
 

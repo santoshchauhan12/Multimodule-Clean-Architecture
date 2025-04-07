@@ -43,6 +43,8 @@ fun HomeScreen() {
         homeViewModel.getProductList()
     }
 
+    BaseComposableScreen(viewModel = homeViewModel)
+
     when(productState) {
 
         ProductUiState.Loading -> {

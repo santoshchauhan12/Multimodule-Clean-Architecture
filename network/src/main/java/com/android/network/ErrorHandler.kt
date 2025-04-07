@@ -22,3 +22,10 @@ sealed class ResponseState<out T, out S> {
         }
     }
 }
+
+interface IFailure
+
+sealed class ErrorModel: IFailure {
+
+    data class HttpFailure(val msg: String) : ErrorModel()
+}

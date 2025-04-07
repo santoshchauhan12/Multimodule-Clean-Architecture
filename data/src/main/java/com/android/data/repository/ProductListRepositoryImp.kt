@@ -4,12 +4,13 @@ import com.android.data.models.ProductListResponse
 import com.android.data.network.ApiService
 import com.android.domain.models.ProductDomainModel
 import com.android.domain.repository.IProductListRepository
+import com.android.network.IFailure
 import com.android.network.ResponseState
 import com.android.network.safeApiCall
 import javax.inject.Inject
 
 class ProductListRepositoryImp @Inject constructor(private val apiService: ApiService) : IProductListRepository {
-    override suspend fun getProductList(): ResponseState<List<ProductDomainModel>, String> {
+    override suspend fun getProductList(): ResponseState<List<ProductDomainModel>, IFailure> {
 
       return  safeApiCall(apiCall =  {
             apiService.getProductList()

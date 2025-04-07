@@ -8,7 +8,7 @@ import retrofit2.Response
 
 
 suspend fun <T, S>safeApiCall(apiCall:suspend ()-> T,
-                              onSuccessTransform: (T)-> S): ResponseState<S, String> {
+                              onSuccessTransform: (T)-> S): ResponseState<S, IFailure> {
 
    return  withContext(Dispatchers.IO) {
         val response = apiCall.invoke()
@@ -24,7 +24,7 @@ suspend fun <T, S>safeApiCall(apiCall:suspend ()-> T,
             } else {
                 Log.d("response=======", "failureee === ${response}")
 
-                ResponseState.Failure(response.message())
+                ResponseState.Failure(ErrorModel.HttpFailure("http failure"))
             }
         } else {
             Log.d("response=======", "underrr === ${response}")

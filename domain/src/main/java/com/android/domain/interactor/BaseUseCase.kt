@@ -1,5 +1,6 @@
 package com.android.domain.interactor
 
+import com.android.network.IFailure
 import com.android.network.ResponseState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -7,11 +8,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class BaseUseCase<T, S> {
+abstract class BaseUseCase<out Type> {
 
-    fun execute(onSuccess: suspend  (T)-> Unit,
-                onFailure: suspend  (S)-> Unit,
-                scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    fun execute(
+        onSuccess: suspend (Type) -> Unit,
+        onFailure: suspend  (IFailure)-> Unit,
+        scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     ) {
 
         scope.launch {
@@ -33,5 +35,5 @@ abstract class BaseUseCase<T, S> {
         }
     }
 
-    abstract suspend  fun run(): ResponseState<T, S>
+    abstract suspend  fun run(): ResponseState<Type, IFailure>
 }

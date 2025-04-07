@@ -64,6 +64,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation(project(":domain"))
     implementation(project(":core"))
+    implementation(project(":network"))
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
